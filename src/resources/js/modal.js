@@ -30,6 +30,10 @@ export default ({ id, activeBodyClass, defaultOpen = false }) => ({
                     document.body.classList.remove(activeBodyClass);
                 }
 
+                if (this.storage) {
+                    this.handleStorageBeforeClose();
+                }
+
                 this.$dispatch("closed");
             }
         });
@@ -79,10 +83,6 @@ export default ({ id, activeBodyClass, defaultOpen = false }) => ({
     },
 
     close() {
-        if (this.storage) {
-            this.handleStorageBeforeClose();
-        }
-
         this.$store.modal.close();
     },
 
