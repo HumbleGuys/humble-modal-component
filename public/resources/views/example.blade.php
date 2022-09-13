@@ -1,5 +1,6 @@
 <x-layout>
     <x-modal::base
+        active-body-class="myModal--isActive"
         name="myModal"
         :default-open="true"
     >
