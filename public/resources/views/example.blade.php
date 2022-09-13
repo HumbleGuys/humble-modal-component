@@ -6,6 +6,8 @@
         <x-modal::backdrop />
 
         <x-modal::inner>
+            <x-modal::closeButton />
+
             My modal
         </x-modal::inner>
     </x-modal::base>

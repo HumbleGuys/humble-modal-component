@@ -6,11 +6,8 @@
     --backdropBackground: #000;
 
     --closeButtonSize: 5rem;
-    --closeButtonBackground: #000;
-    --closeButtonColor: #fff;
+    --closeButtonColor: currentColor;
     --closeButtonIconSize: 2.4rem;
-    --closeButtonHoverBackground: #2b2b2b;
-    --closeButtonHoverColor: #fff;
 
     position: fixed;
     top: 0;
@@ -38,19 +35,10 @@
 .modal__closeButton {
     width: var(--closeButtonSize);
     height: var(--closeButtonSize);
-    position: absolute;
-    top: 0;
-    right: 0;
     color: var(--closeButtonColor);
-    background-color: var(--closeButtonBackground);
     display: flex;
     align-items: center;
     justify-content: center;
-}
-
-.modal__closeButton:hover {
-    color: var(--closeButtonHoverColor);
-    background-color: var(--closeButtonHoverBackground);
 }
 
 .modal__closeButtonIcon {
