@@ -11,4 +11,10 @@
             My modal
         </x-modal::inner>
     </x-modal::base>
+
+    <div>
+        <x-modal::trigger name="myModal">
+            Open my modal
+        </x-modal::trigger>
+    </div>
 </x-layout>
