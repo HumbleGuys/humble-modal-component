@@ -54,6 +54,7 @@
     position: relative;
 }
 
+.modal-enter,
 .modal-leave {
     transition: var(--transtionDuration) cubic-bezier(0.4, 0, 0.2, 1);
 }
