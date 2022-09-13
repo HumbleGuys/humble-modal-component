@@ -2,7 +2,10 @@
     <x-modal::base
         active-body-class="myModal--isActive"
         name="myModal"
-        :default-open="true"
+        :default-open="[
+            'driver' => 'localStorage',
+            'id' => 'myModal'
+        ]"
     >
         <x-modal::backdrop />
 

@@ -1,9 +1,15 @@
 export default ({ id, activeBodyClass, defaultOpen = false }) => ({
     isOpen: false,
 
+    storage: null,
+
     init() {
         if (defaultOpen) {
-            this.open();
+            if (typeof defaultOpen == "boolean") {
+                this.open();
+            } else if (this.shouldBeOpened(defaultOpen)) {
+                this.open();
+            }
         }
 
         Alpine.effect(() => {
@@ -39,11 +45,44 @@ export default ({ id, activeBodyClass, defaultOpen = false }) => ({
         });
     },
 
+    shouldBeOpened({ driver, id }) {
+        if (!driver || !id) {
+            return;
+        }
+
+        this.storage = {
+            driver: driver,
+            id: id,
+        };
+
+        if (driver === "localStorage") {
+            return !window.localStorage.getItem(id);
+        }
+
+        if (driver === "sessionStorage") {
+            return !window.sessionStorage.getItem(id);
+        }
+    },
+
+    handleStorageBeforeClose() {
+        if (this.storage.driver === "localStorage") {
+            return window.localStorage.setItem(id, "seen");
+        }
+
+        if (this.storage.driver === "sessionStorage") {
+            return window.sessionStorage.setItem(id, "seen");
+        }
+    },
+
     toggle(id) {
         this.$store.modal.toggle(id);
     },
 
     close() {
+        if (this.storage) {
+            this.handleStorageBeforeClose();
+        }
+
         this.$store.modal.close();
     },
 
