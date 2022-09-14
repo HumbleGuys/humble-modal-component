@@ -68,6 +68,7 @@
 }
 
 .modal__body {
+    position: relative;
     padding: var(--bodyPadding);
     background-color: #fff;
     overflow: auto;
