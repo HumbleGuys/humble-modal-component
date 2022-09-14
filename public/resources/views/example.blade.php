@@ -3,8 +3,8 @@
         active-body-class="myModal--isActive"
         name="myModal"
         :default-open="[
-            'driver' => 'localStorage',
-            'id' => 'myModal'
+            'storage' => 'localStorage',
+            'id' => 'myModale'
         ]"
     >
         <x-modal::backdrop />

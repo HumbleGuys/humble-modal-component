@@ -4,12 +4,10 @@ export default ({ id, activeBodyClass, defaultOpen = false }) => ({
     storage: null,
 
     init() {
-        if (defaultOpen) {
-            if (typeof defaultOpen == "boolean") {
-                this.open();
-            } else if (this.shouldBeOpened(defaultOpen)) {
-                this.open();
-            }
+        this.storage = this.setStorage();
+
+        if (this.shouldBeOpened()) {
+            this.open();
         }
 
         Alpine.effect(() => {
@@ -49,32 +47,46 @@ export default ({ id, activeBodyClass, defaultOpen = false }) => ({
         });
     },
 
-    shouldBeOpened({ driver, id }) {
-        if (!driver || !id) {
+    setStorage() {
+        if (!defaultOpen || !defaultOpen.storage) {
             return;
         }
 
-        this.storage = {
-            driver: driver,
-            id: id,
+        return {
+            driver: defaultOpen.storage,
+            id: defaultOpen?.id || id,
         };
+    },
 
-        if (driver === "localStorage") {
-            return !window.localStorage.getItem(id);
+    shouldBeOpened() {
+        if (!defaultOpen) {
+            return false;
         }
 
-        if (driver === "sessionStorage") {
-            return !window.sessionStorage.getItem(id);
+        if (typeof defaultOpen == "boolean") {
+            return true;
+        }
+
+        if (!this.storage.driver || !this.storage.id) {
+            return false;
+        }
+
+        if (this.storage.driver === "localStorage") {
+            return !window.localStorage.getItem(this.storage.id);
+        }
+
+        if (this.storage.driver === "sessionStorage") {
+            return !window.sessionStorage.getItem(this.storage.id);
         }
     },
 
     handleStorageBeforeClose() {
         if (this.storage.driver === "localStorage") {
-            return window.localStorage.setItem(id, "seen");
+            return window.localStorage.setItem(this.storage.id, "seen");
         }
 
         if (this.storage.driver === "sessionStorage") {
-            return window.sessionStorage.setItem(id, "seen");
+            return window.sessionStorage.setItem(this.storage.id, "seen");
         }
     },
 
