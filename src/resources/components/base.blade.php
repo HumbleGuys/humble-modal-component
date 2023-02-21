@@ -1,6 +1,6 @@
 @props([
     'name',
-    'transitionName' => 'drawer',
+    'transitionName' => 'modal',
     'activeBodyClass' => '',
     'defaultOpen' => false,
 ])
@@ -12,14 +12,14 @@
             activeBodyClass: '{{ $activeBodyClass }}',
             defaultOpen: {{ json_encode($defaultOpen) }}
         })"
-        x-transition:enter="modal-enter"
-        x-transition:enter-start="modal-enter-start"
-        x-transition:enter-end="modal-enter-end"
-        x-transition:leave="modal-leave"
-        x-transition:leave-start="modal-leave-start"
-        x-transition:leave-end="modal-leave-end"
+        x-transition:enter="{{ $transitionName }}-enter"
+        x-transition:enter-start="{{ $transitionName }}-enter-start"
+        x-transition:enter-end="{{ $transitionName }}-enter-end"
+        x-transition:leave="{{ $transitionName }}-leave"
+        x-transition:leave-start="{{ $transitionName }}-leave-start"
+        x-transition:leave-end="{{ $transitionName }}-leave-end"
         x-show="isOpen"
-        id="modal"
+        id="{{ $name }}"
         {{ $attributes->merge(['class' => 'modal']) }}
         role="region"
         tabindex="-1"
@@ -27,11 +27,11 @@
     >
         {!! $slot !!}
     </div>
-@endpush  
+@endpush
 
 @once
     @push('head')
-        <link rel="stylesheet" href="{{ asset('../vendor/humble-guys/humble-modal-component/public/resources/dist/style.css?v=0.0.1') }}">
-        <script module defer src="{{ asset('../vendor/humble-guys/humble-modal-component/public/resources/dist/humble-modal-component.umd.js?v=0.0.1') }}"></script>
-    @endpush   
-@endonce 
+        <link rel="stylesheet" href="{{ asset('../vendor/humble-guys/humble-modal-component/public/resources/dist/style.css?v=0.0.2') }}">
+        <script module defer src="{{ asset('../vendor/humble-guys/humble-modal-component/public/resources/dist/humble-modal-component.umd.js?v=0.0.2') }}"></script>
+    @endpush
+@endonce
